@@ -1,0 +1,152 @@
+<script>
+var cookieCount = 0;
+var autoclickerCount = 0;
+var farmCount = 0;
+var mineCount = 0;
+var cookieNiggaGodCount = 0;
+
+function processAutoclickers() {
+  cookieCount += autoclickerCount;
+}
+
+function processFarmsAndMinesAndMore() {
+  cookieCount += farmCount;
+  cookieCount += mineCount * 10;
+  cookieCount += cookieNiggaGodCount * 500;
+  updateDisplay();
+}
+
+setInterval(processAutoclickers, 1000);
+setInterval(processFarmsAndMinesAndMore, 100);
+</script>
+<html>
+<head>
+  <title>Cookie Clicker</title>
+  <style>
+  /* Centers images */
+  .Center {
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+  }
+  /*Terminates newline*/
+  .InLine {
+    display:inline;
+  }
+  /*Formats Input Boxes for Display*/
+  .ValueDisplay {
+    text-align:right;
+  }
+  </style>
+  <!--JAVASCRIPT-->
+  <script>
+  //Reloads the page
+  function reloadPage() {
+    location.reload();
+  }
+  //Save and load
+  function save() {
+    localStorage.setItem("cookieCount", cookieCount);
+    localStorage.setItem("autoclickerCount", autoclickerCount);
+    localStorage.setItem("farmCount", farmCount);
+    localStorage.setItem("mineCount", mineCount);
+    localStorage.setItem("cookieNiggaGodCount", cookieNiggaGodCount);
+  }
+  function load() {
+    cookieCount = parseInt(localStorage.getItem("cookieCount"));
+    autoclickerCount = parseInt(localStorage.getItem("autoclickerCount"));
+    farmCount = parseInt(localStorage.getItem("farmCount"));
+    mineCount = parseInt(localStorage.getItem("mineCount"));
+    cookieNiggaGodCount = parseInt(localStorage.getItem("cookieNiggaGodCount"));
+    fullUpdateDisplay();
+  }
+  //Updates display
+  function updateDisplay() {
+    document.getElementById("cookieCount").value = cookieCount;
+    document.title = cookieCount + " Cookies";
+  }
+  function fullUpdateDisplay() {
+    updateDisplay();
+    document.getElementById("autoclickerPrice").innerHTML = (autoclickerCount+1)*12;
+    document.getElementById("autoclickerPriceHundred").innerHTML = ((((autoclickerCount+1)*12)+((autoclickerCount+100)*12))/2)*100;
+    document.getElementById("autoclickerCount").value = autoclickerCount;
+    document.getElementById("farmPrice").innerHTML = (farmCount+1)*150;
+    document.getElementById("farmCount").value = farmCount;
+    document.getElementById("minePrice").innerHTML = (mineCount+1)*2000;
+    document.getElementById("mineCount").value = mineCount;
+    document.getElementById("cookieNiggaGodPrice").innerHTML = (cookieNiggaGodCount+1)*150000;
+    document.getElementById("cookieNiggaGodCount").value = cookieNiggaGodCount;
+  }
+  //Cookie Addition
+  function addCookies(toAdd) {
+    cookieCount += toAdd;
+    updateDisplay();
+  }
+  //Buy Autoclicker
+  function buyAutoclicker(num) {
+    var tmp = autoclickerCount;
+    if(cookieCount>=((((tmp+1)*12)+((tmp+num)*12))/2)*num) {
+      cookieCount-=((((tmp+1)*12)+((tmp+num)*12))/2)*num;
+      autoclickerCount+=num;
+      fullUpdateDisplay();
+    }
+  }
+  //Buy Farm
+  function buyFarm() {
+    if(cookieCount>=(farmCount+1)*150) {
+      cookieCount-=(farmCount+1)*150;
+      farmCount++;
+      fullUpdateDisplay();
+    }
+  }
+  //Buy Mine
+  function buyMine() {
+    if(cookieCount>=(mineCount+1)*2000) {
+      cookieCount -= (mineCount+1)*2000;
+      mineCount++;
+      fullUpdateDisplay();
+    }
+  }
+  //Buy CookieNiggaGod
+  function buyCookieNiggaGod() {
+    if(cookieCount>=(cookieNiggaGodCount+1)*150000) {
+      cookieCount -= (cookieNiggaGodCount+1)*150000;
+      cookieNiggaGodCount++;
+      fullUpdateDisplay();
+    }
+  }
+  </script>
+</head>
+<body style="background-color:5F9AD4;">
+  <button onclick="reloadPage()">RELOAD</button>
+  <button onclick="save()">SAVE</button>
+  <button onclick="load()">LOAD</button>
+  <a href=# onclick="addCookies(1)"><img class="Center" src="cookie.png" alt="Cookie Image" style="width:300px;height:300px"></a>
+  <h1>Your Stuff:</h1>
+  <p class="InLine">Your Cookies:</p>
+  <input class="ValueDisplay" type="text" id="cookieCount" style="width:150px;" disabled>
+  <br><br><p class="InLine">Your Autoclickers:</p>
+  <input class="ValueDisplay" type="text" id="autoclickerCount" style="width:50px;" disabled>
+  <p class="InLine">Price:</p>
+  <p class="InLine" id="autoclickerPrice">12</p>
+  <a href=# onclick="buyAutoclicker(1)">BUY</a>
+  <p class="InLine">--- Price(x100):</p>
+  <p class="InLine" id="autoclickerPriceHundred">60600</p>
+  <a href=# onclick="buyAutoclicker(100)">BUY(x100)</a>
+  <br><br><p class="InLine">Your Farms:</p>
+  <input class="ValueDisplay" type="text" id="farmCount" style="width:50px" disabled>
+  <p class="InLine">Price:</p>
+  <p class="InLine" id="farmPrice">150</p>
+  <a href=# onclick="buyFarm()">BUY</a>
+  <br><br><p class="InLine">Your Mines:</p>
+  <input class="ValueDisplay" type="text" id="mineCount" style="width:50px" disabled>
+  <p class="InLine">Price:</p>
+  <p class="InLine" id="minePrice">2000</p>
+  <a href=# onclick="buyMine()">BUY</a>
+  <br><br><p class="InLine">Your CookieNiggaGods:</p>
+  <input class="ValueDisplay" type="text" id="cookieNiggaGodCount" style="width:50px" disabled>
+  <p class="InLine">Price:</p>
+  <p class="InLine" id="cookieNiggaGodPrice">150000</p>
+  <a href=# onclick="buyCookieNiggaGod()">BUY</a>
+</body>
+</html>
