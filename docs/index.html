@@ -76,6 +76,16 @@ setInterval(processFarmsAndMinesAndMore, 100);
     document.getElementById("mineCount").value = mineCount;
     document.getElementById("cookieNiggaGodPrice").innerHTML = (cookieNiggaGodCount+1)*150000;
     document.getElementById("cookieNiggaGodCount").value = cookieNiggaGodCount;
+    document.getElementById("cookiesPerSecond").innerHTML = getCookiesPerSecond();
+  }
+  //Gets current cps
+  function getCookiesPerSecond() {
+    var total = 0;
+    total += autoclickerCount;
+    total += farmCount*10;
+    total += mineCount*100;
+    total += cookieNiggaGodCount*5000;
+    return total;
   }
   //Cookie Addition
   function addCookies(toAdd) {
@@ -122,8 +132,10 @@ setInterval(processFarmsAndMinesAndMore, 100);
   <button onclick="save()">SAVE</button>
   <button onclick="load()">LOAD</button>
   <a href=# onclick="addCookies(1)"><img class="Center" src="images/cookie.png" alt="Cookie Image" style="width:300px;height:300px"></a>
-  <h1>Your Stuff:</h1>
-  <p class="InLine">Your Cookies:</p>
+  <h1 class="InLine">Your Stuff (</h1>
+  <h1 class="InLine" id="cookiesPerSecond">0</h1>
+  <h1 class="InLine">cps):</h1>
+  <br><br><p class="InLine">Your Cookies:</p>
   <input class="ValueDisplay" type="text" id="cookieCount" style="width:150px;" disabled>
   <br><br><p class="InLine">Your Autoclickers:</p>
   <input class="ValueDisplay" type="text" id="autoclickerCount" style="width:50px;" disabled>
