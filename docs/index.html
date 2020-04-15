@@ -68,7 +68,7 @@ setInterval(processFarmsAndMinesAndMore, 100);
   function fullUpdateDisplay() {
     updateDisplay();
     document.getElementById("autoclickerPrice").innerHTML = (autoclickerCount+1)*12;
-    document.getElementById("autoclickerPriceHundred").innerHTML = ((((autoclickerCount+1)*12)+((autoclickerCount+100)*12))/2)*100;
+    document.getElementById("autoclickerPriceTen").innerHTML = getPrice(12, autoclickerCount, 10);
     document.getElementById("autoclickerCount").value = autoclickerCount;
     document.getElementById("farmPrice").innerHTML = (farmCount+1)*150;
     document.getElementById("farmCount").value = farmCount;
@@ -94,15 +94,15 @@ setInterval(processFarmsAndMinesAndMore, 100);
   }
   //Buy Autoclicker
   function buyAutoclicker(num) {
-    var tmp = autoclickerCount;
-    if(cookieCount>=((((tmp+1)*12)+((tmp+num)*12))/2)*num) {
-      cookieCount-=((((tmp+1)*12)+((tmp+num)*12))/2)*num;
+    if(cookieCount>=getPrice(12, autoclickerCount, num)) {
+      cookieCount-=getPrice(12, autoclickerCount, num);
       autoclickerCount+=num;
       fullUpdateDisplay();
     }
   }
   //Buy Farm
-  function buyFarm() {
+  function buyFarm(num) {
+    var tmp = farmCount;
     if(cookieCount>=(farmCount+1)*150) {
       cookieCount-=(farmCount+1)*150;
       farmCount++;
@@ -125,6 +125,10 @@ setInterval(processFarmsAndMinesAndMore, 100);
       fullUpdateDisplay();
     }
   }
+  //Price-getting function
+  function getPrice(startCost, owned, amount) {
+    return ((((owned+1)*startCost)+((owned+amount)*startCost))/2)*amount;
+  }
   </script>
 </head>
 <body style="background-color:5F9AD4;">
@@ -142,9 +146,9 @@ setInterval(processFarmsAndMinesAndMore, 100);
   <p class="InLine">Price:</p>
   <p class="InLine" id="autoclickerPrice">12</p>
   <a href=# onclick="buyAutoclicker(1)">BUY</a>
-  <p class="InLine">--- Price(x100):</p>
-  <p class="InLine" id="autoclickerPriceHundred">60600</p>
-  <a href=# onclick="buyAutoclicker(100)">BUY(x100)</a>
+  <p class="InLine">--- Price(x10):</p>
+  <p class="InLine" id="autoclickerPriceTen">660</p>
+  <a href=# onclick="buyAutoclicker(10)">BUY(x10)</a>
   <br><br><p class="InLine">Your Farms:</p>
   <input class="ValueDisplay" type="text" id="farmCount" style="width:50px" disabled>
   <p class="InLine">Price:</p>
